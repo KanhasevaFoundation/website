@@ -81,7 +81,7 @@ const DonatePage = () => {
         ...(donationType === 'Money' && { moneyAmount })
       };
 
-      const endpoint = `http://localhost:5000/api/donate/${donorType.toLowerCase()}`;
+      const endpoint = `https://kanhaseva-in.onrender.com/api/donate/${donorType.toLowerCase()}`;
       const response = await axios.post(endpoint, donationData);
       setDonationId(response.data.donationId);
       navigate('/');
