@@ -3,16 +3,11 @@ import React, { useEffect, useState } from "react";
 const Gallery = () => {
     const [images, setImages] = useState([]);
 
-    // Cloudinary API credentials (replace with your credentials)
-    const cloudName = "dfq1dytmn";
-    const apiKey = "875378632358295";
-    const folderName = "Imagesgallery";
-    const apiSecret = "NBwgUu8_SFSzDj2ZlpdE62o2Z3A" // Replace with your folder name
-
+    
     // Function to fetch images from Cloudinary folder
     const fetchImages = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/images'); // Call your backend endpoint
+            const response = await fetch('https://kanhaseva-in.onrender.com/api/images'); // Call your backend endpoint
             const data = await response.json();
             if (data) {
                 // Shuffle the images
