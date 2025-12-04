@@ -38,8 +38,8 @@ const CounterItem = ({ label, end, index }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.3 }}
     >
-      <span className="text-4xl font-bold text-sky-600">{count}+</span>
-      <span className="mt-2 text-lg font-medium text-sky-900">{label}</span>
+      <span className="text-3xl sm:text-4xl font-bold text-sky-600">{count}+</span>
+      <span className="mt-1 sm:mt-2 text-base sm:text-lg font-medium text-sky-900 text-center">{label}</span>
     </motion.div>
   );
 };
@@ -54,10 +54,12 @@ const CounterSection = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="flex justify-around items-center w-11/12 my-16 p-8 bg-sky-50 rounded-lg shadow-lg">
-        {counterData.map((item, index) => (
-          <CounterItem key={index} {...item} index={index} />
-        ))}
+      <div className="w-11/12 my-16 p-6 md:p-8 bg-sky-50 rounded-lg shadow-lg">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {counterData.map((item, index) => (
+            <CounterItem key={index} {...item} index={index} />
+          ))}
+        </div>
       </div>
     </div>
   );

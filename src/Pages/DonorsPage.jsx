@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { Helmet } from 'react-helmet-async';
+import { api } from '../apiClient';
 import { Users, Phone, Coffee, DollarSign, Utensils } from "lucide-react";
 
 const AdminDonorListPage = () => {
@@ -7,8 +8,8 @@ const AdminDonorListPage = () => {
 
   useEffect(() => {
     // Fetch donations from the server
-    axios
-      .get("https://kanhaseva-in.onrender.com/api/donations")
+    api
+      .get("/api/donations")
       .then((response) => setDonations(response.data))
       .catch((error) => console.error("Error fetching donations:", error));
   }, []);
@@ -83,6 +84,11 @@ const AdminDonorListPage = () => {
 
   return (
     <div className="min-h-screen bg-sky-50 p-4">
+      <Helmet>
+        <title>Donors – Admin</title>
+        <meta name="robots" content="noindex,nofollow" />
+        <link rel="canonical" href="https://kanhasevain.vercel.app/donors" />
+      </Helmet>
       {/* Header */}
       <div className="text-center mb-8">
         <h2 className="text-3xl md:text-4xl font-bold text-sky-900 shadow-md rounded-lg p-4 bg-white inline-block">

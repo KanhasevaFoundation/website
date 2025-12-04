@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { trackClick } from "../analytics";
 
 const VolunteerSection = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const VolunteerSection = () => {
   return (
     <section className="flex justify-center items-center my-8">
       <button
-        onClick={handleVolunteerClick}
+        onClick={() => { trackClick('volunteer_cta'); handleVolunteerClick(); }}
         className="bg-sky-500 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-sky-600 transition transform hover:scale-105"
       >
         Become a Volunteer

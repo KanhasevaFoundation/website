@@ -1,9 +1,11 @@
-import axios from "axios";
+import { api } from '../apiClient';
+import { Helmet } from 'react-helmet-async';
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaCalendarAlt, FaVenusMars, FaPhone, FaWhatsapp, FaEnvelope, FaBriefcase, FaMapMarkerAlt, FaFlag, FaCheckCircle, FaArrowRight, FaArrowLeft, FaUpload, FaTimes } from 'react-icons/fa';
 import { MdContacts } from "react-icons/md";
 import { Navigate } from "react-router-dom";
+import { motion } from 'framer-motion';
 
 const VolunteerPage = () => {
   const navigate = useNavigate();
@@ -161,7 +163,7 @@ const VolunteerPage = () => {
     formData.append('termsAccepted', addressDetails.termsAccepted);
 
     try {
-      const response = await axios.post('https://kanhaseva-in.onrender.com/api/volunteers', formData, {
+      const response = await api.post('/api/volunteers', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -184,7 +186,17 @@ const VolunteerPage = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg  mt-5">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="max-w-lg mx-auto p-6 bg-white rounded-lg mt-5 shadow">
+      <Helmet>
+        <title>Become a Volunteer – Kanhaseva</title>
+        <meta name="description" content="Join as a volunteer to support cow feeding and food sharing initiatives." />
+        <link rel="canonical" href="https://kanhasevain.vercel.app/volunteers" />
+        <meta property="og:title" content="Become a Volunteer – Kanhaseva" />
+        <meta property="og:description" content="Support our seva activities as a volunteer." />
+        <meta property="og:url" content="https://kanhasevain.vercel.app/volunteers" />
+        <meta property="og:image" content="https://res.cloudinary.com/dfq1dytmn/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/zyl1uaew9acfn6jxkhvy" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <h1 className="text-3xl font-bold text-center mb-6 text-sky-600">Become a Volunteer</h1>
 
       {/* Progress indicator */}
@@ -210,7 +222,7 @@ const VolunteerPage = () => {
 
       {/* Step 1: Personal Details */}
       {step === 1 && (
-        <div className="transition-all duration-300">
+        <motion.div className="transition-all duration-300" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
           <h2 className="text-xl font-semibold mb-4 text-sky-700 flex items-center">
             <FaUser className="mr-2" /> Personal Details
           </h2>
@@ -326,19 +338,16 @@ const VolunteerPage = () => {
           </div>
 
           <div className="flex justify-end">
-            <button
-              className="flex items-center bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded transition"
-              onClick={handleNext}
-            >
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex items-center bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded transition" onClick={handleNext}>
               Next <FaArrowRight className="ml-2" />
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Step 2: Contact Details */}
       {step === 2 && (
-        <div className="transition-all duration-300">
+        <motion.div className="transition-all duration-300" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
           <h2 className="text-xl font-semibold mb-4 text-sky-700 flex items-center">
             <MdContacts className="mr-2" /> Contact Details
           </h2>
@@ -419,25 +428,19 @@ const VolunteerPage = () => {
           </div>
 
           <div className="flex justify-between">
-            <button
-              className="flex items-center bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded transition"
-              onClick={handleBack}
-            >
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex items-center bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded transition" onClick={handleBack}>
               <FaArrowLeft className="mr-2" /> Back
-            </button>
-            <button
-              className="flex items-center bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded transition"
-              onClick={handleNext}
-            >
+            </motion.button>
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex items-center bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded transition" onClick={handleNext}>
               Next <FaArrowRight className="ml-2" />
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Step 3: Address Details */}
       {step === 3 && (
-        <div className="transition-all duration-300">
+        <motion.div className="transition-all duration-300" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
           <h2 className="text-xl font-semibold mb-4 text-sky-700 flex items-center">
             <FaMapMarkerAlt className="mr-2" /> Address Details
           </h2>
@@ -493,26 +496,16 @@ const VolunteerPage = () => {
           </div>
 
           <div className="flex justify-between">
-            <button
-              className="flex items-center bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded transition"
-              onClick={handleBack}
-            >
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex items-center bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded transition" onClick={handleBack}>
               <FaArrowLeft className="mr-2" /> Back
-            </button>
-            <button
-              className={`flex items-center py-2 px-6 rounded transition ${addressDetails.termsAccepted
-                ? 'bg-sky-600 hover:bg-sky-700 text-white'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                }`}
-              disabled={!addressDetails.termsAccepted}
-              onClick={handleFinish}
-            >
+            </motion.button>
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className={`flex items-center py-2 px-6 rounded transition ${addressDetails.termsAccepted ? 'bg-sky-600 hover:bg-sky-700 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`} disabled={!addressDetails.termsAccepted} onClick={handleFinish}>
               <FaCheckCircle className="mr-2" /> Become a Volunteer
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

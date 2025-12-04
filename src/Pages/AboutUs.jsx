@@ -1,36 +1,50 @@
+import { Helmet } from 'react-helmet-async';
+
 const AboutUs = () => {
   return (
 <div className="bg-sky-50">
+<Helmet>
+  <title>About – Kanhaseva</title>
+  <meta name="description" content="Personal seva initiative: feeding cows and supporting underprivileged individuals." />
+  <link rel="canonical" href="https://kanhasevain.vercel.app/about" />
+  <meta property="og:title" content="About – Kanhaseva" />
+  <meta property="og:description" content="Learn about the Kanhaseva personal seva initiative." />
+  <meta property="og:url" content="https://kanhasevain.vercel.app/about" />
+  <meta property="og:image" content="https://res.cloudinary.com/dfq1dytmn/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/zyl1uaew9acfn6jxkhvy" />
+  <meta name="twitter:card" content="summary_large_image" />
+</Helmet>
 <div className="py-12 px-4 max-w-4xl mx-auto bg-sky-50 ">
       <h1 className="text-4xl font-bold text-center mb-8 text-sky-900">About KanhaSeva.in</h1>
       <p className="text-lg mb-6 text-sky-700">
-        KanhaSeva.in is a non-profit organization dedicated to serving cows and helping underprivileged communities. Founded on the principles of compassion, service, and sustainability, we aim to address critical issues such as hunger, lack of resources, and the well-being of cows. 
+        KanhaSeva.in is a personal initiative. I carry out small acts of seva to support cows and individuals in need. This is a voluntary effort driven by compassion and simplicity.
       </p>
       <p className="text-lg mb-6 text-sky-700">
-        We believe that every living being deserves care and support. Our foundation has been actively involved in feeding cows, providing meals to the poor, and creating long-term sustainable solutions for communities in need. Through our initiatives, we strive to make a meaningful impact on both animals and humans.
+        I believe every living being deserves care. Through my personal effort, I feed cows, share meals, and offer basic support where I can. There is no formal organization or institutional structure behind this work.
       </p>
       <p className="text-lg mb-6 text-sky-700">
-        Since our inception, KanhaSeva.in has touched countless lives through its dedication to service and community development. Our team of volunteers, partners, and donors work tirelessly to ensure that our mission reaches those who need it most. Together, we aim to create a more compassionate and equitable world.
+        Support from well-wishers helps me continue this seva. If you wish to join or contribute, you are welcome to help in simple, practical ways.
       </p>
 
-      <h2 className="text-3xl font-semibold mt-10 mb-6 text-sky-900">Our Mission</h2>
+      <h2 className="text-3xl font-semibold mt-10 mb-6 text-sky-900">Purpose</h2>
       <p className="text-lg mb-6 text-sky-700">
-        Our mission is to provide nourishment and care to cows while supporting underprivileged communities. Through collaboration, transparency, and compassion, we aim to create a future where everyone has the opportunity to thrive.
+        My purpose is to offer simple, direct help: feeding cows and sharing essentials with people who need support.
       </p>
 
-      <h2 className="text-3xl font-semibold mt-10 mb-6 text-sky-900">Our Vision</h2>
+      <h2 className="text-3xl font-semibold mt-10 mb-6 text-sky-900">Vision</h2>
       <p className="text-lg mb-6 text-sky-700">
-        We envision a world where all living beings, regardless of their circumstances, have access to food, care, and the necessary tools to lead a dignified life. KanhaSeva.in strives to be a beacon of hope, transforming lives through service and empowerment.
+        I wish for a compassionate community where small acts of seva make everyday life easier for those in need.
       </p>
 
-      <h2 className="text-3xl font-semibold mt-10 mb-6 text-sky-900">Our Values</h2>
+      <h2 className="text-3xl font-semibold mt-10 mb-6 text-sky-900">Guiding Values</h2>
       <ul className="list-disc list-inside text-lg space-y-3 text-sky-700">
-        <li><strong>Compassion:</strong> Understanding and supporting those in need, including animals and humans.</li>
-        <li><strong>Integrity:</strong> Upholding transparency and honesty in all our actions.</li>
-        <li><strong>Empowerment:</strong> Providing individuals with the tools to create a better future.</li>
-        <li><strong>Sustainability:</strong> Focusing on long-term, impactful solutions for communities and cows.</li>
-        <li><strong>Collaboration:</strong> Partnering with communities, organizations, and individuals for a greater impact.</li>
+        <li><strong>Compassion:</strong> Caring for cows and people through personal effort.</li>
+        <li><strong>Integrity:</strong> Being transparent and truthful about this being a personal initiative.</li>
+        <li><strong>Simplicity:</strong> Focusing on small, meaningful actions.</li>
+        <li><strong>Respect:</strong> Honoring dignity and privacy.</li>
       </ul>
+      <p className="text-sm mt-4 text-yellow-800 bg-yellow-100 inline-block px-3 py-1 rounded">
+        Not a government-registered NGO. This is a personal seva initiative.
+      </p>
     </div>
 </div>
   );

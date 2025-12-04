@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import { api } from "../apiClient";
 import { CircleUserRound } from 'lucide-react';
 
 const Navbar = ({ isAuthenticated, onLogout }) => {
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const profileMenuRef = useRef(null);
+  const [menu, setMenu] = useState({ home: true, gallery: true, volunteers: true, donate: true });
 
-  const logo = "https://res.cloudinary.com/dfq1dytmn/image/upload/f_auto,q_auto/ebldpqf3zpcab44es3ee";
+  const logo = "/web-logo.png";
   // Toggle Profile Menu
   const toggleProfileMenu = () => {
     setProfileMenuOpen(!isProfileMenuOpen);
@@ -32,24 +34,32 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await api.get('/api/settings');
+        if (res.data?.menuVisibility) setMenu(res.data.menuVisibility);
+      } catch {}
+    })();
+  }, []);
+
   return (
     <nav className="bg-sky-100 text-sky-900 px-6 py-4 shadow-md font-[Poppins]">
       <div className="flex justify-between items-center">
         {/* Left: Logo & Title */}
         <div className="flex items-center gap-2">
-          <img src={logo} alt="Logo" className="w-10 h-10 rounded-full" />
+          <img src={logo} alt="kanhaseva.in logo" className="w-10 h-10 rounded-full" />
           <Link to="/" className="text-xl font-bold hover:text-sky-700">
-            Kanhaseva.in
+            kanhaseva.in
           </Link>
         </div>
 
         {/* Center: Navigation Links (Hidden on Mobile) */}
         <div className="hidden md:flex gap-6 text-medium">
-          <NavItem to="/gallery" text="Gallery" />
-          <NavItem to="/programs" text="Our Programs" />
-          <NavItem to="/about" text="About Us" />
-          <NavItem to="/contact" text="Contact Us" />
-          {isAuthenticated && <NavItem to="/volunteers" text="Volunteers" />}
+          {menu.home && <NavItem to="/" text="Home" />}
+          {menu.gallery && <NavItem to="/gallery" text="Gallery" />}
+          {menu.volunteers && <NavItem to="/volunteers" text="Volunteers" />}
+          {menu.donate && <NavItem to="/donate" text="Donate" />}
         </div>
 
         {/* Right: Profile/Login */}
@@ -62,16 +72,14 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
               <CircleUserRound />
             </button>
           ) : (
-            <Link to="/login" className="bg-sky-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-sky-600">
-              Login
+            <Link to="/admin/login" className="bg-sky-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-sky-600">
+              Admin Login
             </Link>
           )}
 
           {/* Profile Dropdown */}
           {isAuthenticated && isProfileMenuOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white text-sky-900 rounded-lg shadow-lg z-10">
-              <ProfileMenuItem to="/Donors" text="Donors" />
-              <ProfileMenuItem to="/volunteers-list" text="Volunteers" />
               <button
                 onClick={() => {
                   onLogout();
@@ -97,11 +105,10 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden mt-4 bg-sky-200 rounded-lg py-3">
-          <NavItem to="/gallery" text="Gallery" mobile />
-          <NavItem to="/programs" text="Our Programs" mobile />
-          <NavItem to="/about" text="About Us" mobile />
-          <NavItem to="/contact" text="Contact Us" mobile />
-          {isAuthenticated && <NavItem to="/volunteers" text="Volunteers" mobile />}
+          {menu.home && <NavItem to="/" text="Home" mobile />}
+          {menu.gallery && <NavItem to="/gallery" text="Gallery" mobile />}
+          {menu.volunteers && <NavItem to="/volunteers" text="Volunteers" mobile />}
+          {menu.donate && <NavItem to="/donate" text="Donate" mobile />}
         </div>
       )}
     </nav>

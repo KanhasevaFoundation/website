@@ -60,6 +60,9 @@ const ImageSlider = () => {
           alt={image.alt} 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
           loading="lazy"
+          decoding="async"
+          referrerPolicy="no-referrer"
+          crossOrigin="anonymous"
         />
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
       </div>

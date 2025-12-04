@@ -1,68 +1,80 @@
+import { Helmet } from 'react-helmet-async';
+
 const OurPrograms = () => {
   return (
     <div className="p-8 bg-sky-50">
-      <h1 className="text-3xl font-bold mb-6 text-center text-sky-900">Our Programs</h1>
+      <Helmet>
+        <title>Services – Kanhaseva</title>
+        <meta name="description" content="Cow feeding, food sharing, and essentials support – simple seva efforts." />
+        <link rel="canonical" href="https://kanhasevain.vercel.app/services" />
+        <meta property="og:title" content="Services – Kanhaseva" />
+        <meta property="og:description" content="Overview of personal seva activities." />
+        <meta property="og:url" content="https://kanhasevain.vercel.app/services" />
+        <meta property="og:image" content="https://res.cloudinary.com/dfq1dytmn/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/zyl1uaew9acfn6jxkhvy" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
+      <h1 className="text-3xl font-bold mb-6 text-center text-sky-900">Services</h1>
 
       {/* Cow Feeding Program */}
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-sky-800">1. Cow Feeding Program</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-sky-800">1. Cow Feeding (Personal Seva)</h2>
         <p className="text-sky-700">
-          Our Cow Feeding Program focuses on providing nutritious food and care to cows. We work with local communities and volunteers to ensure that cows are well-fed and healthy.
+          I personally arrange and provide nutritious food and care to cows as part of my voluntary effort.
         </p>
         <h3 className="font-semibold mt-4 text-sky-800">How It Works:</h3>
         <ul className="list-disc ml-6 mb-4 text-sky-700">
-          <li>Partnerships: We collaborate with local farmers and communities to identify cows in need.</li>
-          <li>Food Collection: We collect and distribute high-quality fodder and supplements for cows.</li>
-          <li>Care and Support: Our team ensures that cows receive regular check-ups and medical care.</li>
-          <li>Awareness: We promote awareness about the importance of cow welfare in our community.</li>
+          <li>Local help: I coordinate with individuals to identify cows needing support.</li>
+          <li>Food arrangements: I source and deliver fodder and supplements.</li>
+          <li>Care: I prioritize basic care through personal effort.</li>
+          <li>Awareness: I share information on cow welfare within my circles.</li>
         </ul>
         <h4 className="font-semibold text-sky-800">Benefits:</h4>
         <ul className="list-disc ml-6 text-sky-700">
-          <li>Improves the health and well-being of cows.</li>
-          <li>Supports local farmers and communities.</li>
-          <li>Promotes sustainable and ethical practices.</li>
+          <li>Supports cow welfare through personal seva.</li>
+          <li>Encourages community participation informally.</li>
+          <li>Focuses on simple, practical help.</li>
         </ul>
       </section>
 
       {/* Meal Distribution Program */}
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-sky-800">2. Meal Distribution Program</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-sky-800">2. Meal Distribution (Personal Seva)</h2>
         <p className="text-sky-700">
-          Our Meal Distribution Program aims to provide hot, nutritious meals to underprivileged communities. We partner with local chefs and volunteers to prepare and deliver meals to those in need.
+          I prepare or arrange simple, nutritious meals and share them with individuals in need, informally and personally.
         </p>
         <h3 className="font-semibold mt-4 text-sky-800">Key Features:</h3>
         <ul className="list-disc ml-6 mb-4 text-sky-700">
-          <li>Weekly Meal Deliveries: Hot meals are prepared and delivered weekly to underserved areas.</li>
-          <li>Community Events: We organize community meal events to foster togetherness and support.</li>
-          <li>Nutritional Education: Providing educational resources on healthy eating and cooking practices.</li>
+          <li>Personal deliveries where possible.</li>
+          <li>Small local sharing based on availability.</li>
+          <li>Encouraging simple healthy eating.</li>
         </ul>
       </section>
 
       {/* Donation Drives */}
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-sky-800">3. Donation Drives</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-sky-800">3. Essentials Sharing</h2>
         <p className="text-sky-700">
-          We organize regular donation drives to collect essential items such as clothing, toiletries, and school supplies for individuals and families in need. Our goal is to provide necessary resources that can help improve their quality of life.
+          I occasionally collect and share essential items like clothing or basic supplies with people who need them.
         </p>
         <h3 className="font-semibold mt-4 text-sky-800">How You Can Help:</h3>
         <ul className="list-disc ml-6 mb-4 text-sky-700">
-          <li>Host a Drive: Organize a donation drive in your community, workplace, or school.</li>
-          <li>Volunteer: Join us in sorting and distributing donated items to those in need.</li>
-          <li>Spread the Word: Share information about our drives to encourage community participation.</li>
+          <li>Share directly where you see need.</li>
+          <li>Offer simple help in your locality.</li>
+          <li>Spread awareness informally.</li>
         </ul>
       </section>
 
       {/* Community Workshops */}
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-sky-800">4. Community Workshops</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-sky-800">4. Community Guidance</h2>
         <p className="text-sky-700">
-          Our Community Workshops are designed to empower individuals with skills and knowledge. We offer a variety of workshops on topics such as financial literacy, job readiness, and health and wellness.
+          I share practical guidance and resources informally to help individuals with everyday challenges.
         </p>
         <h3 className="font-semibold mt-4 text-sky-800">Workshop Highlights:</h3>
         <ul className="list-disc ml-6 mb-4 text-sky-700">
-          <li>Skill Development: Learn valuable skills that can enhance employability and personal growth.</li>
-          <li>Support Networks: Connect with community members and build supportive networks.</li>
-          <li>Guest Speakers: Hear from experts in various fields who can provide insights and guidance.</li>
+          <li>Simple tips and resources.</li>
+          <li>Encouraging supportive connections.</li>
+          <li>Occasional sharing from experienced individuals.</li>
         </ul>
       </section>
 
@@ -70,7 +82,7 @@ const OurPrograms = () => {
       <section className="text-center">
         <h2 className="text-2xl font-semibold mb-4 text-sky-800">Get Involved</h2>
         <p className="text-sky-700">
-          Join us in our mission to create a supportive and sustainable community. Whether you are interested in volunteering, donating, or participating in our programs, there are many ways to get involved. Together, we can make a difference!
+          If you wish to support this personal seva, you can volunteer, share essentials, or contribute in simple ways.
         </p>
       </section>
 
@@ -78,8 +90,8 @@ const OurPrograms = () => {
       <section className="text-center mt-8">
         <h2 className="text-2xl font-semibold mb-4 text-sky-800">Contact Us</h2>
         <p className="text-sky-700">
-          If you would like more information about our programs or how to get involved, please reach out to us at 
-          <a href="mailto:contact@kanhaseva.in" className="text-sky-600 hover:underline"> contact@kanhaseva.in</a> or call us at (123) 456-7890.
+          For more information about these personal services or to get involved, reach out at
+          <a href="mailto:contact@kanhaseva.in" className="text-sky-600 hover:underline"> contact@kanhaseva.in</a>.
         </p>
       </section>
     </div>

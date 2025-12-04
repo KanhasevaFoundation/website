@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Helmet } from 'react-helmet-async';
+import { api } from '../apiClient';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -25,23 +27,12 @@ const ContactUs = () => {
     setSuccessMessage("");
   
     try {
-      const response = await fetch("https://kanhaseva-in.onrender.com/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      if (!response.ok) {
-        throw new Error("Failed to submit the form. Please try again.");
-      }
-  
-      const data = await response.json();
+      const response = await api.post('/api/contact', formData);
+      const data = response.data;
       setSuccessMessage(data.message || "Thank you for contacting us! We will get back to you soon.");
       setFormData({ name: "", email: "", message: "" }); // Reset form
     } catch (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(error.message || 'Failed to submit the form. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -49,6 +40,16 @@ const ContactUs = () => {
 
   return (
     <div className="p-8 bg-sky-50">
+      <Helmet>
+        <title>Contact Us – Kanhaseva</title>
+        <meta name="description" content="Get in touch for volunteering or contribution inquiries." />
+        <link rel="canonical" href="https://kanhasevain.vercel.app/contact" />
+        <meta property="og:title" content="Contact Us – Kanhaseva" />
+        <meta property="og:description" content="Reach out to Kanhaseva for questions or support." />
+        <meta property="og:url" content="https://kanhasevain.vercel.app/contact" />
+        <meta property="og:image" content="https://res.cloudinary.com/dfq1dytmn/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/zyl1uaew9acfn6jxkhvy" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <h1 className="text-3xl font-bold text-center mb-8 text-sky-900">Contact Us</h1>
 
       <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">

@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from 'react-helmet-async';
+import { api } from '../apiClient';
+import LazyImage from '../component/LazyImage';
 
 const VideosAndImagesPage = () => {
     const [images, setImages] = useState([]);
@@ -7,8 +10,8 @@ const VideosAndImagesPage = () => {
     // Function to fetch images from Cloudinary folder
     const fetchImages = async () => {
         try {
-            const response = await fetch('https://kanhaseva-in.onrender.com/api/images'); // Call your backend endpoint
-            const data = await response.json();
+            const response = await api.get('/api/images');
+            const data = response.data;
             if (data) {
                 // Shuffle the images
                 const shuffledImages = data.sort(() => Math.random() - 0.5);
@@ -26,6 +29,16 @@ const VideosAndImagesPage = () => {
 
     return (
         <div >
+            <Helmet>
+              <title>Gallery – Kanhaseva</title>
+              <meta name="description" content="Browse photos from cow feeding, meal sharing, and seva activities." />
+              <link rel="canonical" href="https://kanhasevain.vercel.app/gallery" />
+              <meta property="og:title" content="Gallery – Kanhaseva" />
+              <meta property="og:description" content="Photos from ongoing seva activities." />
+              <meta property="og:url" content="https://kanhasevain.vercel.app/gallery" />
+              <meta property="og:image" content="https://res.cloudinary.com/dfq1dytmn/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/zyl1uaew9acfn6jxkhvy" />
+              <meta name="twitter:card" content="summary_large_image" />
+            </Helmet>
             {/* First Section: YouTube Shorts */}
            
 
@@ -35,11 +48,12 @@ const VideosAndImagesPage = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mx-20">
                     {images.map((image, index) => (
                         <div key={index} className="aspect-w-1 aspect-h-1">
-                            <img
+                            <LazyImage
                                 src={image}
                                 alt={`Gallery Image ${index + 1}`}
-                                className="w-full h-full object-cover rounded-lg shadow-lg"
-                            />
+                                className="w-full h-full rounded-lg shadow-lg"
+                                placeholderClass="rounded-lg"
+                              />
                         </div>
                     ))}
                 </div>

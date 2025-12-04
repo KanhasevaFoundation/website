@@ -13,7 +13,18 @@ const volunteerSchema = new mongoose.Schema({
   address: { type: String, required: true },
   state: { type: String, required: true },
   termsAccepted: Boolean,
-  image: String, // Field to store Cloudinary image URL
+  image: String,
+  password: { type: String },
+  status: { type: String, enum: ['pending','approved','rejected'], default: 'pending' },
+  permissions: {
+    donors: { type: Boolean, default: false },
+    volunteers: { type: Boolean, default: false },
+    analytics: { type: Boolean, default: false },
+    tasks: { type: Boolean, default: true },
+    socialLinks: { type: Boolean, default: false },
+    menuVisibility: { type: Boolean, default: false },
+    adminUsers: { type: Boolean, default: false },
+  },
 });
 
 const Volunteer = mongoose.model('Volunteer', volunteerSchema);

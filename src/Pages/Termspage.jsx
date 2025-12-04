@@ -1,5 +1,6 @@
 // src/Pages/TermsPage.jsx
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet-async';
 
 const Container = styled.div`
   padding: 20px;
@@ -25,6 +26,16 @@ const Subtitle = styled.h2`
 const TermsPage = () => {
   return (
     <Container>
+      <Helmet>
+        <title>Terms & Conditions – Kanhaseva</title>
+        <meta name="description" content="Terms and conditions for the Kanhaseva personal seva website." />
+        <link rel="canonical" href="https://kanhasevain.vercel.app/terms" />
+        <meta property="og:title" content="Terms & Conditions – Kanhaseva" />
+        <meta property="og:description" content="Legal terms for using the Kanhaseva website." />
+        <meta property="og:url" content="https://kanhasevain.vercel.app/terms" />
+        <meta property="og:image" content="https://res.cloudinary.com/dfq1dytmn/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/zyl1uaew9acfn6jxkhvy" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <Title>Terms and Conditions</Title>
       <Section>
         <Subtitle>1. Introduction</Subtitle>

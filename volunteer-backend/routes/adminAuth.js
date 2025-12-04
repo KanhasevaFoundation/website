@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Admin = require('../models/Admin');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 
 // POST /api/admin/login
@@ -14,14 +14,25 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid username or password' });
     }
 
-    // Compare the password
-    // const isPasswordValid = await Admin.compare(password, admin.password);
-    if (!(password == admin.password)) {
+    const isHashed = typeof admin.password === 'string' && admin.password.startsWith('$2');
+    const ok = isHashed ? await bcrypt.compare(password, admin.password) : password === admin.password;
+    if (!ok) {
       return res.status(400).json({ message: 'Invalid username or password' });
     }
 
+    if (admin.enabled === false) {
+      return res.status(403).json({ message: 'Account disabled' });
+    }
+
     // Authentication successful
-    res.status(200).json({ message: 'Login successful' });
+    const safeUser = {
+      id: admin._id,
+      username: admin.username,
+      enabled: admin.enabled !== false,
+      role: admin.role || 'user',
+      permissions: admin.permissions || {},
+    };
+    res.status(200).json({ message: 'Login successful', user: safeUser });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
     console.log(error);

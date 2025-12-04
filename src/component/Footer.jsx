@@ -1,12 +1,20 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Link } from "react-router-dom";
+import { trackClick } from "../analytics";
+import { useEffect, useState } from "react";
+import { api } from "../apiClient";
 
 // Social Media Links Component
 const SocialMediaLinks = () => {
+  const [links, setLinks] = useState({});
+  useEffect(() => { (async () => { try { const res = await api.get('/api/social-links'); setLinks(res.data || {}); } catch {} })(); }, []);
   const socialLinks = [
-    { href: "https://facebook.com", icon: "fab fa-facebook-f", label: "Facebook" },
-    { href: "https://www.youtube.com/@KanhasevaFoundation", icon: "fab fa-youtube", label: "Twitter" },
-    { href: "https://www.instagram.com/kanhaseva.in/", icon: "fab fa-instagram", label: "Instagram" },
-    { href: "https://linkedin.com", icon: "fab fa-linkedin-in", label: "LinkedIn" },
+    { href: links.facebook || "https://facebook.com", icon: "fab fa-facebook-f", label: "Facebook" },
+    { href: links.youtube || "https://www.youtube.com/@KanhasevaFoundation", icon: "fab fa-youtube", label: "YouTube" },
+    { href: links.instagram || "https://www.instagram.com/kanhaseva.in/", icon: "fab fa-instagram", label: "Instagram" },
+    { href: links.linkedin || "https://linkedin.com", icon: "fab fa-linkedin-in", label: "LinkedIn" },
+    { href: links.twitter || "https://twitter.com", icon: "fab fa-twitter", label: "Twitter" },
+    { href: links.website || "https://www.kanhaseva.in", icon: "fas fa-globe", label: "Website" },
   ];
 
   return (
@@ -30,9 +38,10 @@ const SocialMediaLinks = () => {
 // Quick Links Component
 const QuickLinks = () => {
   const links = [
-    { href: "/about", text: "About Us" },
-    { href: "/programs", text: "Our Programs" },
-    { href: "/contact", text: "Contact Us" },
+    { href: "/about", text: "About" },
+    { href: "/services", text: "Services" },
+    { href: "/support", text: "Support My Seva" },
+    { href: "/contact", text: "Contact" },
     { href: "/donate", text: "Donate" },
   ];
 
@@ -62,7 +71,10 @@ const Footer = () => {
         <div className="flex flex-col space-y-4 w-full lg:w-1/3">
           <h2 className="text-lg font-bold text-sky-900">About KanhaSeva.in</h2>
           <p className="text-sm text-sky-700">
-            At KanhaSeva.in, we are dedicated to serving cows and helping the underprivileged. Our mission is to provide nourishment to cows and support poor communities through donations and volunteer efforts. Join us in making a difference!
+            This is a personal seva initiative. I support cows and individuals in need through simple, direct help.
+          </p>
+          <p className="text-xs mt-2 text-yellow-800 bg-yellow-100 inline-block px-3 py-1 rounded">
+            Not a government-registered NGO. This is a personal seva initiative.
           </p>
         </div>
 
@@ -73,9 +85,11 @@ const Footer = () => {
         <div className="flex flex-col items-center lg:items-start space-y-6 w-full lg:w-1/3">
           <h2 className="text-lg font-bold text-sky-900">Connect with Us</h2>
           <SocialMediaLinks />
-          <button className="mt-4 bg-sky-500 hover:bg-sky-600 text-white py-2 px-6 rounded-md shadow-md transition-all hover:scale-105">
-            Donate Now
-          </button>
+          <Link to="/donate" className="mt-4">
+            <button onClick={() => trackClick('footer_donate')} className="bg-sky-500 hover:bg-sky-600 text-white py-2 px-6 rounded-md shadow-md transition-all hover:scale-105">
+              Donate Now
+            </button>
+          </Link>
         </div>
       </div>
 

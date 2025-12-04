@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { api } from '../apiClient';
 import { User, Home, Phone, Mail, PlusCircle, MinusCircle, DollarSign, Gift, Coffee, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const DonatePage = () => {
   const navigate = useNavigate();
@@ -81,8 +83,8 @@ const DonatePage = () => {
         ...(donationType === 'Money' && { moneyAmount })
       };
 
-      const endpoint = `https://kanhaseva-in.onrender.com/api/donate/${donorType.toLowerCase()}`;
-      const response = await axios.post(endpoint, donationData);
+      const endpoint = `/api/donate/${donorType.toLowerCase()}`;
+      const response = await api.post(endpoint, donationData);
       setDonationId(response.data.donationId);
       navigate('/');
 
@@ -93,8 +95,23 @@ const DonatePage = () => {
 
   return (
     <div className='bg-sky-50'>
-      <div className="max-w-2xl mx-auto p-6 bg-sky-50 rounded-lg ">
-      <h2 className="text-3xl font-bold text-center mb-6 text-sky-700">Make a Donation</h2>
+    <Helmet>
+      <title>Donate – Kanhaseva</title>
+      <meta name="description" content="Contribute to cow feeding, food sharing, or essentials support." />
+      <link rel="canonical" href="https://kanhasevain.vercel.app/donate" />
+      <meta property="og:title" content="Donate – Kanhaseva" />
+      <meta property="og:description" content="Support our seva through donations." />
+      <meta property="og:url" content="https://kanhasevain.vercel.app/donate" />
+      <meta property="og:image" content="https://res.cloudinary.com/dfq1dytmn/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/zyl1uaew9acfn6jxkhvy" />
+      <meta name="twitter:card" content="summary_large_image" />
+    </Helmet>
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
+      className="max-w-2xl mx-auto p-6 bg-sky-50 rounded-lg shadow-lg"
+    >
+      <h2 className="text-3xl font-bold text-center mb-6 text-sky-700">Support This Personal Seva</h2>
 
       {/* Donor Type Toggle Switch */}
       <div className="flex justify-center mb-6">
@@ -126,10 +143,10 @@ const DonatePage = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <motion.form onSubmit={handleSubmit} className="space-y-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         {/* Personal Details Form */}
         {donorType === 'Personal' && (
-          <div className="space-y-4 bg-white p-4 rounded-lg shadow-md">
+          <motion.div className="space-y-4 bg-white p-4 rounded-lg shadow-md" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h3 className="text-xl font-semibold text-sky-700">Personal Details</h3>
 
             {/* Name Input */}
@@ -239,12 +256,12 @@ const DonatePage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Restaurant Details Form */}
         {donorType === 'Restaurant' && (
-          <div className="space-y-4 bg-white p-4 rounded-lg shadow-md">
+          <motion.div className="space-y-4 bg-white p-4 rounded-lg shadow-md" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h3 className="text-xl font-semibold text-sky-700">Restaurant Details</h3>
 
             {/* Restaurant Name Input */}
@@ -349,7 +366,7 @@ const DonatePage = () => {
                 <PlusCircle size={20} className="mr-2" /> Add Food Item
               </button>
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Error message */}
@@ -360,13 +377,15 @@ const DonatePage = () => {
         )}
 
         {/* Submit button */}
-        <button
+        <motion.button
           type="submit"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           className="w-full py-3 px-6 text-white font-bold rounded-md shadow-md transition-all bg-sky-500 hover:bg-sky-600 flex items-center justify-center"
         >
           <Heart size={24} className="mr-2" />
           Donate Now
-        </button>
+        </motion.button>
 
         {/* Success message */}
         {donationId && (
@@ -374,8 +393,8 @@ const DonatePage = () => {
             Donation successful! Your donation ID is <span className="font-bold">{donationId}</span>.
           </div>
         )}
-      </form>
-    </div>
+      </motion.form>
+    </motion.div>
     </div>
   );
 };

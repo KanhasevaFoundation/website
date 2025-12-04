@@ -19,13 +19,18 @@ const upload = multer({ storage: storage });
 
 // Create a new volunteer route with file upload
 router.post('/volunteers', upload.single('image'), async (req, res) => {
-  const { name, age, dob, gender, phone, whatsapp, email, designation, address, state } = req.body;
-  const image = req.file ? req.file.path : null; // Access the uploaded file path
+  const { name, age, dob, gender, phone, whatsapp, email, designation, address, state, termsAccepted } = req.body;
+  const image = req.file ? req.file.path : null;
 
   try {
-    const { name, age, dob, gender, phone, whatsapp, email, designation, address, state, termsAccepted, image } = req.body;
+    const requiredStrings = [name, gender, phone, email, designation, address, state];
+    const validPhone = typeof phone === 'string' && /^[0-9]{10}$/.test(phone);
+    const validEmail = typeof email === 'string' && /\S+@\S+\.\S+/.test(email);
+    const validAge = !isNaN(Number(age)) && Number(age) > 0 && Number(age) <= 100;
+    if (requiredStrings.some(v => !v) || !validPhone || !validEmail || !validAge || !dob || termsAccepted !== 'true' && termsAccepted !== true) {
+      return res.status(400).json({ message: 'Invalid volunteer data' });
+    }
 
-    // Create a new volunteer with the image URL from Cloudinary
     const newVolunteer = new Volunteer({
       name,
       age,
@@ -38,14 +43,23 @@ router.post('/volunteers', upload.single('image'), async (req, res) => {
       address,
       state,
       termsAccepted,
-      image: req.file.path, // Cloudinary URL for the uploaded image
+      image,
     });
 
     await newVolunteer.save();
     res.status(201).json({ message: 'Volunteer created successfully!' });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error creating volunteer', error });
+    res.status(500).json({ message: 'Error creating volunteer' });
+  }
+});
+
+router.put('/admin/volunteers/:id/status', async (req, res) => {
+  try {
+    const v = await Volunteer.findByIdAndUpdate(req.params.id, { status: req.body.status }, { new: true });
+    if (!v) return res.status(404).json({ message: 'Volunteer not found' });
+    res.json({ id: v._id, status: v.status });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to update status' });
   }
 });
 

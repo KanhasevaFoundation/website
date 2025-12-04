@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { Helmet } from 'react-helmet-async';
+import { api } from '../apiClient';
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaSearch, FaSort, FaSortUp, FaSortDown, FaSpinner, FaExclamationTriangle } from "react-icons/fa";
 
 const VolunteersListPage = () => {
@@ -17,7 +18,7 @@ const VolunteersListPage = () => {
     const fetchVolunteers = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://kanhaseva-in.onrender.com/api/volunteers");
+        const response = await api.get("/api/volunteers");
         if (Array.isArray(response.data)) {
           setVolunteers(response.data);
           setFilteredVolunteers(response.data);
@@ -115,49 +116,75 @@ const VolunteersListPage = () => {
   // Handle loading state
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-64">
-        <FaSpinner className="text-sky-600 text-4xl animate-spin mb-4" />
-        <p className="text-gray-600">Loading volunteers data...</p>
-      </div>
+      <>
+        <Helmet>
+          <title>Volunteers List – Admin</title>
+          <meta name="robots" content="noindex,nofollow" />
+          <link rel="canonical" href="https://kanhasevain.vercel.app/volunteers-list" />
+        </Helmet>
+        <div className="flex flex-col items-center justify-center h-64">
+          <FaSpinner className="text-sky-600 text-4xl animate-spin mb-4" />
+          <p className="text-gray-600">Loading volunteers data...</p>
+        </div>
+      </>
     );
   }
 
   // Handle error state
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 max-w-md mx-auto px-4">
-        <FaExclamationTriangle className="text-red-500 text-4xl mb-4" />
-        <p className="text-red-500 text-lg font-medium mb-2">Error</p>
-        <p className="text-gray-700 text-center">{error}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="mt-4 bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded transition"
-        >
-          Retry
-        </button>
-      </div>
+      <>
+        <Helmet>
+          <title>Volunteers List – Admin</title>
+          <meta name="robots" content="noindex,nofollow" />
+          <link rel="canonical" href="https://kanhasevain.vercel.app/volunteers-list" />
+        </Helmet>
+        <div className="flex flex-col items-center justify-center h-64 max-w-md mx-auto px-4">
+          <FaExclamationTriangle className="text-red-500 text-4xl mb-4" />
+          <p className="text-red-500 text-lg font-medium mb-2">Error</p>
+          <p className="text-gray-700 text-center">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded transition"
+          >
+            Retry
+          </button>
+        </div>
+      </>
     );
   }
 
   // Display empty state
   if (!volunteers.length) {
     return (
-      <div className="text-center mt-16 p-8 max-w-md mx-auto bg-white rounded-lg shadow">
-        <FaUser className="text-sky-300 text-5xl mx-auto mb-4" />
-        <h2 className="text-2xl font-semibold text-gray-700 mb-2">No Volunteers Found</h2>
-        <p className="text-gray-600 mb-6">There are currently no volunteers registered in the system.</p>
-        <a
-          href="/volunteer"
-          className="inline-block bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded transition"
-        >
-          Become a Volunteer
-        </a>
-      </div>
+      <>
+        <Helmet>
+          <title>Volunteers List – Admin</title>
+          <meta name="robots" content="noindex,nofollow" />
+          <link rel="canonical" href="https://kanhasevain.vercel.app/volunteers-list" />
+        </Helmet>
+        <div className="text-center mt-16 p-8 max-w-md mx-auto bg-white rounded-lg shadow">
+          <FaUser className="text-sky-300 text-5xl mx-auto mb-4" />
+          <h2 className="text-2xl font-semibold text-gray-700 mb-2">No Volunteers Found</h2>
+          <p className="text-gray-600 mb-6">There are currently no volunteers registered in the system.</p>
+          <a
+            href="/volunteer"
+            className="inline-block bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded transition"
+          >
+            Become a Volunteer
+          </a>
+        </div>
+      </>
     );
   }
 
   return (
     <div className="max-w-6xl mx-auto mt-8 p-4">
+      <Helmet>
+        <title>Volunteers List – Admin</title>
+        <meta name="robots" content="noindex,nofollow" />
+        <link rel="canonical" href="https://kanhasevain.vercel.app/volunteers-list" />
+      </Helmet>
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="bg-gradient-to-r from-sky-500 to-sky-600 py-6 px-6">
           <h1 className="text-3xl font-bold text-white">Volunteers Directory</h1>
@@ -238,6 +265,11 @@ const VolunteersListPage = () => {
                           src={volunteer.image}
                           alt={`${volunteer.name}'s avatar`}
                           className="w-10 h-10 rounded-full object-cover border-2 border-sky-200"
+                          loading="lazy"
+                          decoding="async"
+                          referrerPolicy="no-referrer"
+                          crossOrigin="anonymous"
+                          onError={(e) => { e.currentTarget.style.display = 'none'; }}
                         />
                       ) : (
                         <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center">
