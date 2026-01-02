@@ -19,13 +19,13 @@ const AdminDashboard = ({ user }) => {
         <h2 className="text-lg font-bold text-sky-900 mb-3">Admin</h2>
         <nav className="flex flex-col space-y-2">
           {items.length ? items.map(i => (
-            <NavLink key={i.to} to={i.to} className={({isActive}) => `px-3 py-2 rounded ${isActive ? 'bg-sky-600 text-white' : 'hover:bg-sky-100 text-sky-900'}`}>{i.label}</NavLink>
+            <NavLink key={i.to} to={i.to} className={({ isActive }) => `px-3 py-2 rounded ${isActive ? 'bg-sky-600 text-white' : 'hover:bg-sky-100 text-sky-900'}`}>{i.label}</NavLink>
           )) : (
             <div className="text-sm text-gray-600">No permissions assigned</div>
           )}
         </nav>
       </aside>
-      <main className="md:col-span-4 bg-white rounded-lg shadow p-4">
+      <main className="md:col-span-4 bg-white rounded-lg shadow p-4 overflow-y-auto max-h-[85vh]">
         <Outlet />
       </main>
     </div>

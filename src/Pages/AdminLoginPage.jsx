@@ -17,6 +17,7 @@ const AdminLoginPage = ({ onLogin }) => {
     try {
       const response = await api.post('/api/admin/login', credentials);
       if (response.status === 200) {
+        localStorage.setItem('token', response.data.token);
         onLogin(response.data?.user);
         navigate('/admin');
       }

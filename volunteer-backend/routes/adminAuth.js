@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Admin = require('../models/Admin');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 
 // POST /api/admin/login
@@ -32,7 +33,14 @@ router.post('/login', async (req, res) => {
       role: admin.role || 'user',
       permissions: admin.permissions || {},
     };
-    res.status(200).json({ message: 'Login successful', user: safeUser });
+
+    const token = jwt.sign(
+      { userId: admin._id, username: admin.username, role: admin.role || 'user' },
+      process.env.JWT_SECRET || 'secret_key_change_me',
+      { expiresIn: '1h' }
+    );
+
+    res.status(200).json({ message: 'Login successful', user: safeUser, token });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
     console.log(error);

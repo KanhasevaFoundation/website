@@ -20,8 +20,16 @@ const donationSchema = new mongoose.Schema({
     foodItems: [String],
   },
   donationType: String,
-  moneyAmount: Number,
-});
+  money: Number,
+  razorpayOrderId: String,
+  razorpayPaymentId: String,
+  razorpaySignature: String,
+  status: {
+    type: String,
+    default: 'Pending', // Pending, Success, Failed
+  },
+  failureReason: String,
+}, { timestamps: true });
 
 const Donation = mongoose.model('Donation', donationSchema);
 
