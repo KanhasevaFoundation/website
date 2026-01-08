@@ -7,10 +7,10 @@ const crypto = require('crypto');
 
 // Initialize Razorpay
 // NOTE: Ensure these environment variables are set in your .env file
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+// const razorpay = new Razorpay({
+//   key_id: process.env.RAZORPAY_KEY_ID,
+//   key_secret: process.env.RAZORPAY_KEY_SECRET,
+// });
 
 // Personal donation with Razorpay support
 router.post('/donate/personal', async (req, res) => {
@@ -53,6 +53,10 @@ router.post('/donate/personal', async (req, res) => {
           currency: "INR",
           receipt: `receipt_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
         };
+        const razorpay = new Razorpay({
+          key_id: process.env.RAZORPAY_KEY_ID,
+          key_secret: process.env.RAZORPAY_KEY_SECRET,
+        });
         const order = await razorpay.orders.create(options);
         razorpayOrderId = order.id;
         donation.razorpayOrderId = razorpayOrderId;

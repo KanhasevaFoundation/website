@@ -1,12 +1,13 @@
 // server.js
-require('dotenv').config(); // Load environment variables
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') }); // Load environment variables from the server directory
 const express = require('express');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const multer = require('multer');
-const path = require('path');
+// const path = require('path');
 const contactRoutes = require("./routes/contactRoutes");
 const volunteerRoutes = require('./routes/VolunteerRoutes');
 const imageRoutes = require('./routes/imagesRoutes');
@@ -56,8 +57,8 @@ mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('MongoDB Atlas connected'))
-.catch(err => console.error('MongoDB connection error:', err));
+  .then(() => console.log('MongoDB Atlas connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
 app.use('/api', volunteerRoutes);
